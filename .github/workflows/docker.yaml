@@ -14,8 +14,8 @@ jobs:
           submodules: 'recursive'
       - name: Checkout latest tag of submodule
         run: |
-          git submodule foreach 'echo $name : `git describe --tags`'
-          git submodule foreach 'git checkout $(git describe --tags)'
+          cd $(pwd)/Xray-core
+          git checkout $(git describe --tags)
 
       - name: Set up Go
         uses: actions/setup-go@v4
