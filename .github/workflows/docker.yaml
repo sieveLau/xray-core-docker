@@ -21,20 +21,18 @@ jobs:
         run: |
           git submodule foreach 'echo $name : `git describe --tags`'
           git submodule foreach 'git checkout $(git describe --tags)'
-      # - name: View
-      #   run: |
-      #     cd Xray-core
-      #     cd ..
 
       - name: Set up Go
-        uses: actions/setup-go@v4
         with:
-          go-version: "1.21"
           go-version-file: Xray-core/go.mod
           cache-dependency-path: Xray-core/go.sum
 
       - name: Test
-        run: go test -timeout 1h -v Xray-core/...
+        run: |
+          cd Xray-core
+          go mod download
+          go test -timeout 1h -v ./...
+          cd ..
   # build-and-push:
   #   runs-on: ubuntu-latest
   #   needs: test
