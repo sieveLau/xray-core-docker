@@ -12,6 +12,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
+      - name: fetch submodule tags
+        run: |
+          cd Xray-core
+          git fetch --prune --unshallow --tags
+          cd ..
       - name: Checkout latest tag of submodule
         run: |
           git submodule foreach 'echo $name : `git describe --tags`'
