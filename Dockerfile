@@ -12,4 +12,7 @@ FROM alpine as main
 COPY --from=build /xray /usr/bin/xray
 RUN mkdir -p /etc/xray
 WORKDIR /etc/xray
-CMD ["/usr/bin/xray", "-config", "/etc/xray/config.json"]
+ENV XRAY_LOCATION_ASSET=/etc/xray
+ENV XRAY_LOCATION_CONFIG=/etc/xray
+ENV XRAY_LOCATION_CONFDIR=/etc/xray
+CMD ["/usr/bin/xray"]
